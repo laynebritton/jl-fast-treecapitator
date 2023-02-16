@@ -17,6 +17,9 @@ export const VeinBreakEvent = (blockBreakEvent: BlockBreakEvent) => {
   say("sneaking");
   say(blockBreakEvent.player.name + " , " + brokenBlock);
 
-  const block = blockBreakEvent.block.location;
-  say("x: " + block.x + ", y:" + block.y + ", z:" + block.z);
+  const location = blockBreakEvent.block.location;
+  say("x: " + location.x + ", y:" + location.y + ", z:" + location.z);
+  const overworld = world.getDimension("overworld");
+  location.y += 1;
+  say(overworld.getBlock(location).type.id);
 };
