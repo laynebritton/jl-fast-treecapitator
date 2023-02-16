@@ -18,7 +18,7 @@ function mainTick() {
             "say " +
               blockBreakEvent.player.name +
               " , " +
-              blockBreakEvent.block.typeId
+              blockBreakEvent.brokenBlockPermutation.type.id
           );
       });
     }

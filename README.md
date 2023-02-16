@@ -9,3 +9,8 @@ Run in the root folder
 
 Run gulp watch to have the pack auto-rebuild
 `gulp watch`
+
+Create a local minecraft world. Enable experimental beta api.
+Add `JL Fast Treecapitator` behavior pack to the world.
+
+Use `/reload` command in minecraft to reload changes while debugging
