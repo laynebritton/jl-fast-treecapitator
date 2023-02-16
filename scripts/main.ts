@@ -9,6 +9,9 @@ function mainTick() {
     if (tickIndex === 100) {
       world.getDimension("overworld").runCommandAsync("say Hello world!");
       world.events.blockBreak.subscribe((blockBreakEvent: BlockBreakEvent) => {
+        if (blockBreakEvent.player.isSneaking) {
+          world.getDimension("overworld").runCommandAsync("say sneaking");
+        }
         world
           .getDimension("overworld")
           .runCommandAsync(
