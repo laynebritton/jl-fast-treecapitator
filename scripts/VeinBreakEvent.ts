@@ -3,9 +3,10 @@ import { say } from "./Debug";
 import { VEIN_BLOCKS } from "./VeinBlocks";
 
 export const VeinBreakEvent = (blockBreakEvent: BlockBreakEvent) => {
-  say(VEIN_BLOCKS.has(blockBreakEvent.brokenBlockPermutation.type.id) + "");
+  const brokenBlock = blockBreakEvent.brokenBlockPermutation.type.id;
+  say(VEIN_BLOCKS.has(brokenBlock) + "");
 
-  if (!VEIN_BLOCKS.has(blockBreakEvent.brokenBlockPermutation.type.id)) {
+  if (!VEIN_BLOCKS.has(brokenBlock)) {
     // return;
   }
 
@@ -14,9 +15,8 @@ export const VeinBreakEvent = (blockBreakEvent: BlockBreakEvent) => {
   }
 
   say("sneaking");
-  say(
-    blockBreakEvent.player.name +
-      " , " +
-      blockBreakEvent.brokenBlockPermutation.type.id
-  );
+  say(blockBreakEvent.player.name + " , " + brokenBlock);
+
+  const block = blockBreakEvent.block.location;
+  say("x: " + block.x + ", y:" + block.y + ", z:" + block.z);
 };
