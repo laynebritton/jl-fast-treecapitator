@@ -1,33 +1,65 @@
-import { world, BlockBreakEvent, Block } from "@minecraft/server";
-import { say } from "./Debug";
+import {
+  BlockBreakEvent,
+  BlockLocation,
+  Dimension,
+  MinecraftBlockTypes,
+} from "@minecraft/server";
 import { VEIN_BLOCKS } from "./VeinBlocks";
+
+const MAX_DEPTH = 150;
 
 export const VeinBreakEvent = (blockBreakEvent: BlockBreakEvent) => {
   const brokenBlock = blockBreakEvent.brokenBlockPermutation.type.id;
-  say(VEIN_BLOCKS.has(brokenBlock) + "");
 
-  if (!blockBreakEvent.player.isSneaking || !VEIN_BLOCKS.has(brokenBlock)) {
-    // return;
+  if (!VEIN_BLOCKS.has(brokenBlock) || !blockBreakEvent.player.isSneaking) {
+    return;
   }
 
-  say("sneaking");
-  say(blockBreakEvent.player.name + " , " + brokenBlock);
-
-  const location = blockBreakEvent.block.location;
-  say("x: " + location.x + ", y:" + location.y + ", z:" + location.z);
-  const overworld = world.getDimension("overworld");
-  location.y += 1;
-  say(overworld.getBlock(location).type.id);
+  DFS(
+    blockBreakEvent.block.location,
+    brokenBlock,
+    1,
+    new Set<string>(),
+    blockBreakEvent.dimension
+  );
 };
 
-function _SearchForVein() {
-  throw new Error("Function not implemented.");
-}
+/*
+Check adjacent 26 blocks for matching blockTypeId. If the same and unvisited, then dfs(new location, blockTypeId)
+*/
+const DFS = (
+  blockLocation: BlockLocation,
+  blockTypeId: string,
+  depth: number,
+  visited: Set<string>,
+  dimension: Dimension
+) => {
+  const coord = convertBlockLocationToString(blockLocation);
+  if (depth > MAX_DEPTH || visited.has(coord)) {
+    return;
+  }
+  visited.add(coord);
 
-function _BreakVein() {
-  throw new Error("Function not implemented.");
-}
+  for (let z = -1; z <= 1; z++) {
+    for (let x = -1; x <= 1; x++) {
+      for (let y = -1; y <= 1; y++) {
+        const newBlockLocation = new BlockLocation(
+          blockLocation.x + x,
+          blockLocation.y + y,
+          blockLocation.z + z
+        );
 
-function _BreakLeaves() {
-  throw new Error("Function not implemented.");
-}
+        if (dimension.getBlock(newBlockLocation).type.id === blockTypeId) {
+          DFS(newBlockLocation, blockTypeId, depth + 1, visited, dimension);
+        }
+      }
+    }
+  }
+  dimension.runCommandAsync(
+    `setblock ${blockLocation.x} ${blockLocation.y} ${blockLocation.z} ${MinecraftBlockTypes.air.id} 0 destroy`
+  );
+};
+
+const convertBlockLocationToString = (blockLocation: BlockLocation) => {
+  return blockLocation.x + "," + blockLocation.y + "," + blockLocation.z;
+};

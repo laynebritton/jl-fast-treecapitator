@@ -25,6 +25,9 @@ const VEIN_BLOCKS_LIST = [
   MinecraftBlockTypes.netherGoldOre.id,
   MinecraftBlockTypes.emeraldOre.id,
   MinecraftBlockTypes.deepslateEmeraldOre.id,
+
+  // Other
+  MinecraftBlockTypes.glowstone.id,
 ];
 
 const VEIN_BLOCKS = new Set<String>();
