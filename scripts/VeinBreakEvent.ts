@@ -1,4 +1,4 @@
-import { world, BlockBreakEvent } from "@minecraft/server";
+import { world, BlockBreakEvent, Block } from "@minecraft/server";
 import { say } from "./Debug";
 import { VEIN_BLOCKS } from "./VeinBlocks";
 
@@ -19,3 +19,15 @@ export const VeinBreakEvent = (blockBreakEvent: BlockBreakEvent) => {
   location.y += 1;
   say(overworld.getBlock(location).type.id);
 };
+
+function _SearchForVein() {
+  throw new Error("Function not implemented.");
+}
+
+function _BreakVein() {
+  throw new Error("Function not implemented.");
+}
+
+function _BreakLeaves() {
+  throw new Error("Function not implemented.");
+}
