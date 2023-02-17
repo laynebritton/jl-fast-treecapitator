@@ -1,6 +1,6 @@
 import { BlockBreakEvent, BlockLocation, Dimension } from "@minecraft/server";
 import { destroy } from "./Utilities";
-import { VEIN_BLOCKS } from "./VeinBlocks";
+import { VEIN_BLOCKS, LEAF_BLOCKS } from "./VeinBlocks";
 
 const MAX_DEPTH = 150;
 
@@ -48,8 +48,11 @@ const DFS = (
           continue;
         }
 
-        if (dimension.getBlock(newBlockLocation).type.id === blockTypeId) {
+        const block = dimension.getBlock(newBlockLocation);
+        if (block.type.id === blockTypeId) {
           DFS(newBlockLocation, blockTypeId, depth + 1, visited, dimension);
+        } else if (LEAF_BLOCKS.has(block.type.id)) {
+          destroy(newBlockLocation, dimension);
         }
       }
     }
