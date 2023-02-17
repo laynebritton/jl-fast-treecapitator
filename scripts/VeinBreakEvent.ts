@@ -6,11 +6,7 @@ export const VeinBreakEvent = (blockBreakEvent: BlockBreakEvent) => {
   const brokenBlock = blockBreakEvent.brokenBlockPermutation.type.id;
   say(VEIN_BLOCKS.has(brokenBlock) + "");
 
-  if (!VEIN_BLOCKS.has(brokenBlock)) {
-    // return;
-  }
-
-  if (!blockBreakEvent.player.isSneaking) {
+  if (!blockBreakEvent.player.isSneaking || !VEIN_BLOCKS.has(brokenBlock)) {
     // return;
   }
 
