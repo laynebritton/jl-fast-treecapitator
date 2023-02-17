@@ -35,4 +35,16 @@ VEIN_BLOCKS_LIST.forEach((block) => {
   VEIN_BLOCKS.add(block);
 });
 
-export { VEIN_BLOCKS };
+const LEAF_BLOCK_LIST = [
+  MinecraftBlockTypes.leaves.id,
+  MinecraftBlockTypes.leaves2.id,
+  MinecraftBlockTypes.azaleaLeaves.id,
+  MinecraftBlockTypes.mangroveLeaves.id,
+];
+
+const LEAF_BLOCKS = new Set<string>();
+LEAF_BLOCK_LIST.forEach((block) => {
+  LEAF_BLOCKS.add(block);
+});
+
+export { VEIN_BLOCKS, LEAF_BLOCKS };

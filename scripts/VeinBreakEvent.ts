@@ -1,12 +1,8 @@
-import {
-  BlockBreakEvent,
-  BlockLocation,
-  Dimension,
-  MinecraftBlockTypes,
-} from "@minecraft/server";
-import { VEIN_BLOCKS } from "./VeinBlocks";
+import { BlockBreakEvent, BlockLocation, Dimension } from "@minecraft/server";
+import { destroy } from "./Utilities";
+import { VEIN_BLOCKS, LEAF_BLOCKS } from "./VeinBlocks";
 
-const MAX_DEPTH = 150;
+const MAX_DEPTH = 120;
 
 export const VeinBreakEvent = (blockBreakEvent: BlockBreakEvent) => {
   const brokenBlock = blockBreakEvent.brokenBlockPermutation.type.id;
@@ -35,10 +31,10 @@ const DFS = (
   dimension: Dimension
 ) => {
   const coord = convertBlockLocationToString(blockLocation);
-  if (depth > MAX_DEPTH || visited.has(coord)) {
+  visited.add(coord);
+  if (depth > MAX_DEPTH) {
     return;
   }
-  visited.add(coord);
 
   for (let z = -1; z <= 1; z++) {
     for (let x = -1; x <= 1; x++) {
@@ -48,16 +44,19 @@ const DFS = (
           blockLocation.y + y,
           blockLocation.z + z
         );
-
-        if (dimension.getBlock(newBlockLocation).type.id === blockTypeId) {
+        if (visited.has(convertBlockLocationToString(newBlockLocation))) {
+          continue;
+        }
+        const block = dimension.getBlock(newBlockLocation);
+        if (block.type.id === blockTypeId) {
           DFS(newBlockLocation, blockTypeId, depth + 1, visited, dimension);
+        } else if (LEAF_BLOCKS.has(block.type.id)) {
+          destroy(newBlockLocation, dimension);
         }
       }
     }
   }
-  dimension.runCommandAsync(
-    `setblock ${blockLocation.x} ${blockLocation.y} ${blockLocation.z} ${MinecraftBlockTypes.air.id} 0 destroy`
-  );
+  destroy(blockLocation, dimension);
 };
 
 const convertBlockLocationToString = (blockLocation: BlockLocation) => {
