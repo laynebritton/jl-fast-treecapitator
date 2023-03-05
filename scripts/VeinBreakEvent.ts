@@ -1,13 +1,13 @@
 import { BlockBreakEvent, BlockLocation, Dimension } from "@minecraft/server";
 import { destroy } from "./Utilities";
-import { VEIN_BLOCKS } from "./VeinBlocks";
+import { VEIN_BLOCKS_MAP } from "./VeinBlocksMap";
 
 const MAX_DEPTH = 150;
 
 export const VeinBreakEvent = (blockBreakEvent: BlockBreakEvent) => {
   const brokenBlock = blockBreakEvent.brokenBlockPermutation.type.id;
 
-  if (!VEIN_BLOCKS.has(brokenBlock) || !blockBreakEvent.player.isSneaking) {
+  if (!VEIN_BLOCKS_MAP.has(brokenBlock) || !blockBreakEvent.player.isSneaking) {
     return;
   }
 
@@ -48,7 +48,11 @@ const DFS = (
           continue;
         }
 
-        if (dimension.getBlock(newBlockLocation).type.id === blockTypeId) {
+        if (
+          VEIN_BLOCKS_MAP.get(blockTypeId)?.has(
+            dimension.getBlock(newBlockLocation).type.id
+          )
+        ) {
           DFS(newBlockLocation, blockTypeId, depth + 1, visited, dimension);
         }
       }
