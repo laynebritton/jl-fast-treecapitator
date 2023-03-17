@@ -4,7 +4,7 @@ Jesse and Layne's Fast Treecapitator is a Minecraft Bedrock mod that interfaces 
 This mod aims to mimic the functionality of the original tree capitator and vein meiner mods in the Java version
 of Minecraft while being as efficient as possible. 
 
-To run locally
+## To Develop Locally
 
 Install node module `npm i`
 Ensure you have gulp installed `npm i gulp-cli --global`
