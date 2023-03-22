@@ -1,4 +1,4 @@
-import { BlockBreakEvent, BlockLocation, Dimension } from "@minecraft/server";
+import { BlockBreakEvent, Vector3, Dimension } from "@minecraft/server";
 import { destroy } from "./Utilities";
 import { VEIN_BLOCKS_MAP } from "./VeinBlocksMap";
 
@@ -24,7 +24,7 @@ export const VeinBreakEvent = (blockBreakEvent: BlockBreakEvent) => {
 Check adjacent 26 blocks for matching blockTypeId. If the same and unvisited, then dfs(new location, blockTypeId)
 */
 const DFS = (
-  blockLocation: BlockLocation,
+  blockLocation: Vector3,
   blockTypeId: string,
   depth: number,
   visited: Set<string>,
@@ -39,11 +39,12 @@ const DFS = (
   for (let z = -1; z <= 1; z++) {
     for (let x = -1; x <= 1; x++) {
       for (let y = -1; y <= 1; y++) {
-        const newBlockLocation = new BlockLocation(
-          blockLocation.x + x,
-          blockLocation.y + y,
-          blockLocation.z + z
-        );
+        const newBlockLocation: Vector3 = {
+          x: blockLocation.x + x,
+          y: blockLocation.y + y,
+          z: blockLocation.z + z,
+        };
+
         if (visited.has(convertBlockLocationToString(newBlockLocation))) {
           continue;
         }
@@ -61,6 +62,6 @@ const DFS = (
   destroy(blockLocation, dimension);
 };
 
-const convertBlockLocationToString = (blockLocation: BlockLocation) => {
+const convertBlockLocationToString = (blockLocation: Vector3) => {
   return blockLocation.x + "," + blockLocation.y + "," + blockLocation.z;
 };
