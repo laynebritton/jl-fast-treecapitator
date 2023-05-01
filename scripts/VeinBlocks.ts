@@ -2,8 +2,13 @@ import { MinecraftBlockTypes } from "@minecraft/server";
 
 export const VEIN_BLOCKS_LIST = [
   // Logs
-  MinecraftBlockTypes.log.id,
-  MinecraftBlockTypes.log2.id,
+  MinecraftBlockTypes.oakLog.id,
+  MinecraftBlockTypes.birchLog.id,
+  MinecraftBlockTypes.acaciaLog.id,
+  MinecraftBlockTypes.cherryLog.id,
+  MinecraftBlockTypes.jungleLog.id,
+  MinecraftBlockTypes.spruceLog.id,
+  MinecraftBlockTypes.darkOakLog.id,
   MinecraftBlockTypes.mangroveLog.id,
 
   // Ore
