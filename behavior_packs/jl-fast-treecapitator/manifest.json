@@ -4,7 +4,7 @@
     "name": "JL Fast Treecapitator",
     "description": "Mine trees and veins in 1 click, fast!",
     "uuid": "b1da7c74-d155-4686-a9aa-33d5a6c48da0",
-    "version": [1, 0, 1],
+    "version": [1, 0, 2],
     "min_engine_version": [1, 19, 40]
   },
   "modules": [
