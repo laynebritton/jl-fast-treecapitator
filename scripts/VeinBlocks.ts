@@ -10,6 +10,7 @@ export const VEIN_BLOCKS_LIST = [
   MinecraftBlockTypes.spruceLog.id,
   MinecraftBlockTypes.darkOakLog.id,
   MinecraftBlockTypes.mangroveLog.id,
+  MinecraftBlockTypes.cherryLog.id,
 
   // Ore
   MinecraftBlockTypes.coalOre.id,

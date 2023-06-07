@@ -1,6 +1,8 @@
-import { world, BlockBreakEvent } from "@minecraft/server";
+import { world, BlockBreakAfterEvent } from "@minecraft/server";
 import { VeinBreakEvent } from "./VeinBreakEvent";
 
-world.events.blockBreak.subscribe((blockBreakEvent: BlockBreakEvent) => {
-  VeinBreakEvent(blockBreakEvent);
-});
+world.afterEvents.blockBreak.subscribe(
+  (blockBreakEvent: BlockBreakAfterEvent) => {
+    VeinBreakEvent(blockBreakEvent);
+  }
+);
