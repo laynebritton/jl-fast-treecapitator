@@ -3,6 +3,10 @@
 Jesse and Layne's Fast Treecapitator is a Minecraft Bedrock mod recreates and enhances the functionality of the original tree capitator and vein meiner mods from the Java version
 of Minecraft with high-speed and efficient computer resource usage
 
+How to use:
+1. Sneak
+2. Mine a tree log or ore
+
 🌳 Cut down entire trees with a single swing
 ![tree-cutdown-gif-small](https://github.com/laynebritton/jl-fast-treecapitator/assets/21363865/ad5bfb36-c16f-40e8-853f-b1d7cdb4e88d)
 
