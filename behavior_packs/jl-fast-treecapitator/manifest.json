@@ -4,7 +4,7 @@
     "name": "JL Fast Treecapitator",
     "description": "Mine trees and veins in 1 click, fast! v1.0.5",
     "uuid": "0ec989c0-b044-439b-8bf3-39db645141b2",
-    "version": [1, 0, 5],
+    "version": [1, 0, 6],
     "min_engine_version": [1, 20, 10]
   },
   "modules": [
@@ -13,14 +13,14 @@
       "language": "javascript",
       "type": "script",
       "uuid": "c01fc4df-7f42-4cbf-b398-62d4230b9f92",
-      "version": [1, 0, 5],
+      "version": [1, 0, 6],
       "entry": "scripts/main.js"
     }
   ],
   "dependencies": [
     {
       "module_name": "@minecraft/server",
-      "version": "1.4.0-beta"
+      "version": "1.5.0-beta"
     }
   ]
 }
