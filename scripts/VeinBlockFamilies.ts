@@ -1,43 +1,43 @@
-import { MinecraftBlockTypes } from "@minecraft/server";
+import { MinecraftBlockTypes } from "./mojang-block";
 
 export const REDSTONE_FAMILY = [
-  MinecraftBlockTypes.redstoneOre.id,
-  MinecraftBlockTypes.deepslateRedstoneOre.id,
-  MinecraftBlockTypes.litRedstoneOre.id,
-  MinecraftBlockTypes.litDeepslateRedstoneOre.id,
+  MinecraftBlockTypes.RedstoneOre,
+  MinecraftBlockTypes.DeepslateRedstoneOre,
+  MinecraftBlockTypes.LitRedstoneOre,
+  MinecraftBlockTypes.LitDeepslateRedstoneOre,
 ];
 
 export const COAL_FAMILY = [
-  MinecraftBlockTypes.coalOre.id,
-  MinecraftBlockTypes.deepslateCoalOre.id,
+  MinecraftBlockTypes.CoalOre,
+  MinecraftBlockTypes.DeepslateCoalOre,
 ];
 
 export const IRON_FAMILY = [
-  MinecraftBlockTypes.ironOre.id,
-  MinecraftBlockTypes.deepslateIronOre.id,
+  MinecraftBlockTypes.IronOre,
+  MinecraftBlockTypes.DeepslateIronOre,
 ];
 
 export const LAPIS_FAMILY = [
-  MinecraftBlockTypes.lapisOre.id,
-  MinecraftBlockTypes.deepslateLapisOre.id,
+  MinecraftBlockTypes.LapisOre,
+  MinecraftBlockTypes.DeepslateLapisOre,
 ];
 
 export const DIAMOND_FAMILY = [
-  MinecraftBlockTypes.diamondOre.id,
-  MinecraftBlockTypes.deepslateDiamondOre.id,
+  MinecraftBlockTypes.DiamondOre,
+  MinecraftBlockTypes.DeepslateDiamondOre,
 ];
 
 export const COPPER_FAMILY = [
-  MinecraftBlockTypes.diamondOre.id,
-  MinecraftBlockTypes.deepslateDiamondOre.id,
+  MinecraftBlockTypes.CopperOre,
+  MinecraftBlockTypes.DeepslateCopperOre,
 ];
 
 export const GOLD_FAMILY = [
-  MinecraftBlockTypes.goldOre.id,
-  MinecraftBlockTypes.deepslateGoldOre.id,
+  MinecraftBlockTypes.GoldOre,
+  MinecraftBlockTypes.DeepslateGoldOre,
 ];
 
 export const EMERALD_FAMILIY = [
-  MinecraftBlockTypes.emeraldOre.id,
-  MinecraftBlockTypes.deepslateEmeraldOre.id,
+  MinecraftBlockTypes.EmeraldOre,
+  MinecraftBlockTypes.DeepslateEmeraldOre,
 ];
