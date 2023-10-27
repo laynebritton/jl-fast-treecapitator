@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "JL Fast Treecapitator",
-    "description": "Mine trees and veins in 1 click, fast! v1.1.0",
+    "description": "Mine trees and veins in 1 click, fast! v1.1.1",
     "uuid": "0ec989c0-b044-439b-8bf3-39db645141b2",
     "version": [1, 1, 1],
     "min_engine_version": [1, 20, 10]
