@@ -1,12 +1,22 @@
-import { ChatSendAfterEvent } from "@minecraft/server";
+import {
+  ChatSendAfterEvent,
+  DynamicPropertiesDefinition,
+  world,
+} from "@minecraft/server";
 import { say } from "./Debug";
 import { VEIN_BLOCKS_LIST } from "./VeinBlocks";
 import { VEIN_BLOCKS_MAP } from "./VeinBlocksMap";
-import { SYSTEM_CHAT_PREFIX, systemOutput } from "./Utilities";
+import { systemOutput } from "./Utilities";
+import {
+  GET_ID_BLOCK_BREAK_ENABLED,
+  SET_ID_BLOCK_BREAK_ENABLED,
+} from "./UserConfig";
 
 export const USER_CLI_PREFIX = ">jltreecap";
 
 export const UserCLIEvent = (chatSendAfterEvent: ChatSendAfterEvent) => {
+  // const config = world.getDynamicProperty("config");
+  // systemOutput(`Config ${config}`);
   const message = chatSendAfterEvent.message;
   if (
     !message ||
@@ -51,6 +61,13 @@ export const UserCLIEvent = (chatSendAfterEvent: ChatSendAfterEvent) => {
       VEIN_BLOCKS_MAP.delete(toRemoveBlockId);
       systemOutput(
         `Block ID: ${toRemoveBlockId} removed from vein minable blocks`
+      );
+      break;
+    }
+    case "toggleGetId": {
+      SET_ID_BLOCK_BREAK_ENABLED(!GET_ID_BLOCK_BREAK_ENABLED());
+      systemOutput(
+        `Get ID on break toggled to - ${GET_ID_BLOCK_BREAK_ENABLED()}`
       );
       break;
     }

@@ -5,12 +5,12 @@ import {
 } from "@minecraft/server";
 import { destroy } from "./Utilities";
 import { VEIN_BLOCKS_MAP } from "./VeinBlocksMap";
+import { say } from "./Debug";
 
 const MAX_DEPTH = 150;
 
 export const VeinBreakEvent = (blockBreakEvent: PlayerBreakBlockAfterEvent) => {
   const brokenBlock = blockBreakEvent.brokenBlockPermutation.type.id;
-
   if (!VEIN_BLOCKS_MAP.has(brokenBlock) || !blockBreakEvent.player.isSneaking) {
     return;
   }
