@@ -2,9 +2,9 @@ name: Automated Build
 
 on:
   push:
-    branches: [main, githubActions]
+    branches: [main]
   pull_request:
-    branches: [main, githubActions]
+    branches: [main]
 jobs:
   build:
     runs-on: ubuntu-latest
