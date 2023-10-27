@@ -1,22 +1,14 @@
-import {
-  ChatSendAfterEvent,
-  DynamicPropertiesDefinition,
-  world,
-} from "@minecraft/server";
-import { say } from "./Debug";
-import { VEIN_BLOCKS_LIST } from "./VeinBlocks";
-import { VEIN_BLOCKS_MAP } from "./VeinBlocksMap";
+import { ChatSendAfterEvent } from "@minecraft/server";
 import { systemOutput } from "./Utilities";
 import {
-  GET_ID_BLOCK_BREAK_ENABLED,
-  SET_ID_BLOCK_BREAK_ENABLED,
-} from "./UserConfig";
+  getJLTreeCapConfig,
+  setJLTreeCapConfig,
+} from "./DynamicProperties/JLTreeCapConfig.ts";
+import { getAllowSet, setAllowSet } from "./DynamicProperties/AllowSet";
 
-export const USER_CLI_PREFIX = ">jltreecap";
+export const USER_CLI_PREFIX = ">jltree";
 
 export const UserCLIEvent = (chatSendAfterEvent: ChatSendAfterEvent) => {
-  // const config = world.getDynamicProperty("config");
-  // systemOutput(`Config ${config}`);
   const message = chatSendAfterEvent.message;
   if (
     !message ||
@@ -45,30 +37,88 @@ export const UserCLIEvent = (chatSendAfterEvent: ChatSendAfterEvent) => {
   const command = args[1];
   switch (command) {
     case "help": {
-      systemOutput(`Add block: ${USER_CLI_PREFIX} add block:id`);
-      systemOutput(`Remove block: ${USER_CLI_PREFIX} remove block:id`);
+      systemOutput(`${USER_CLI_PREFIX} add block:id - §7Add block`);
+      systemOutput(`${USER_CLI_PREFIX} remove block:id - §7Remove block`);
+      systemOutput(`${USER_CLI_PREFIX} toggle - §7Turn jltreecap on/off`);
+      systemOutput(`${USER_CLI_PREFIX} list - §7List added blocks: `);
+      systemOutput(
+        `${USER_CLI_PREFIX} reset - §7Reset default jltreecap settings`
+      );
+      systemOutput(
+        `${USER_CLI_PREFIX} toggleGetId - §7Toggle get block id mode on/off`
+      );
       break;
     }
     case "add": {
       const newBlockId = args[2];
-      VEIN_BLOCKS_MAP.set(newBlockId, new Set<String>());
-      VEIN_BLOCKS_MAP.get(newBlockId)?.add(newBlockId);
+      if (newBlockId.includes(",")) {
+        systemOutput(` "," commas not allowed in block ids`);
+        break;
+      }
+
+      const allowSet = getAllowSet();
+      if (allowSet.set.has(newBlockId)) {
+        systemOutput(`Block ID: ${newBlockId} already in allowed blocks`);
+        break;
+      }
+
+      allowSet.set.add(newBlockId);
+      setAllowSet(allowSet);
       systemOutput(`Block ID: ${newBlockId} added to vein minable blocks`);
       break;
     }
     case "remove": {
       const toRemoveBlockId = args[2];
-      VEIN_BLOCKS_MAP.delete(toRemoveBlockId);
+      if (toRemoveBlockId.includes(",")) {
+        systemOutput(` "," commas not allowed in block ids`);
+        break;
+      }
+
+      const allowSet = getAllowSet();
+      if (!allowSet.set.has(toRemoveBlockId)) {
+        systemOutput(`Block ID: ${toRemoveBlockId} not in allowed blocks`);
+        break;
+      }
+
+      allowSet.set.delete(toRemoveBlockId);
+      setAllowSet(allowSet);
       systemOutput(
         `Block ID: ${toRemoveBlockId} removed from vein minable blocks`
       );
       break;
     }
+    case "toggle": {
+      const config = getJLTreeCapConfig();
+      config.enabled = !config.enabled;
+      setJLTreeCapConfig(config);
+      systemOutput(`Enabled : ${config.enabled}`);
+      break;
+    }
     case "toggleGetId": {
-      SET_ID_BLOCK_BREAK_ENABLED(!GET_ID_BLOCK_BREAK_ENABLED());
+      const config = getJLTreeCapConfig();
+      config.blockBreakIdGetEnabled = !config.blockBreakIdGetEnabled;
+      setJLTreeCapConfig(config);
       systemOutput(
-        `Get ID on break toggled to - ${GET_ID_BLOCK_BREAK_ENABLED()}`
+        `Block Break Id-Get mode enabled : ${config.blockBreakIdGetEnabled}`
       );
+      break;
+    }
+    case "list": {
+      const allowSet = getAllowSet();
+      const allowSetArr = Array.from(allowSet.set);
+      const allowSetString = allowSetArr.toString();
+      systemOutput(`Custom allowed blocks: ${allowSetString}`);
+      break;
+    }
+    case "reset": {
+      const config = getJLTreeCapConfig();
+      config.enabled = true;
+      config.blockBreakIdGetEnabled = false;
+      setJLTreeCapConfig(config);
+      const allowSet = getAllowSet();
+      allowSet.set = new Set<string>();
+      setAllowSet(allowSet);
+      systemOutput(`Default settings restored`);
       break;
     }
     default: {
