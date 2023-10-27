@@ -33,6 +33,6 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
           upload_url: ${{steps.create_release.outputs.upload_url}}
-          asset_path: ./build/behavior_packs/
+          asset_path: ./build/behavior_packs/jl-fast-treecapitator.mcpack
           asset_name: jl-fast-treecapitator.mcpack
           asset_content_type: application/zip
