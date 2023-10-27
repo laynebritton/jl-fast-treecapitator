@@ -21,25 +21,6 @@ world.afterEvents.playerBreakBlock.subscribe(
   }
 );
 
-world.afterEvents.worldInitialize.subscribe((event) => {
-  // First time set up if no prior config exists
-  const config = world.getDynamicProperty("config");
-  const allowSet = world.getDynamicProperty("allowSet");
-  const removeSet = world.getDynamicProperty("removeSet");
-
-  if (!config) {
-    world.setDynamicProperty("config", JSON.stringify({}));
-  }
-
-  if (!allowSet) {
-    world.setDynamicProperty("allowSet", JSON.stringify({}));
-  }
-
-  if (!removeSet) {
-    world.setDynamicProperty("removeSet", JSON.stringify({}));
-  }
-});
-
 world.afterEvents.chatSend.subscribe(
   (chatSendAfterEvent: ChatSendAfterEvent) => {
     UserCLIEvent(chatSendAfterEvent);
