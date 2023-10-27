@@ -13,9 +13,30 @@ How to use:
 ⛏️ It works for mining veins of ore too!
 ![coal-mining](https://github.com/laynebritton/jl-fast-treecapitator/assets/21363865/bdf6db8b-16a7-4b73-9b65-734bffd94e73)
 
-⚡️ Optimal Performance: By utilizing our search mining algorithm optimized for Minecraft, we've crafted a mod that mines lightning fast while keeping resource usage to a minimum. Resulting in a smooth gaming experience across all platforms, consoles, and servers.
+⚡️ Optimal Performance: Our mining algorithm is optimized for Minecraft. It mines lightning fast while keeping resource usage to a low. Resulting in a smooth gaming experience across all platforms and servers.
 
 🔮 Microsoft Scripting API Integration: Our mod utilizes the latest Minecraft Scripting API using TypeScript. 
+
+## 🔧 Configuration
+
+JLTree supports user configuration in-game using commands.
+
+Use `>jltree help` for the full list of commands in game.
+
+Want to add a block to the vein mineable blocks? Use `>jltree add block:id`
+
+Don't know the block id? Use `>jltree toggleGetId` to output block ids of destroyed blocks. Toggle it back off after.
+
+Full command list
+
+```
+>jltree add block:id - Add block
+>jltree remove block:id - Remove block
+>jltree toggle - Turn jltreecap on/off
+>jltree list - List added blocks
+>jltree reset - Reset default jltreecap settings
+>jltree toggleGetId - Toggle get block id mode on/off
+```
 
 ## To Develop Locally
 
