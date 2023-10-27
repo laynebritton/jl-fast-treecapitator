@@ -3,18 +3,26 @@ import {
   Vector3,
   Dimension,
 } from "@minecraft/server";
-import { destroy } from "./Utilities";
+import { destroy, systemOutput } from "./Utilities";
 import { VEIN_BLOCKS_MAP } from "./VeinBlocksMap";
+import { say } from "./Debug";
+import { getJLTreeCapConfig } from "./DynamicProperties/JLTreeCapConfig.ts";
+import { getAllowSet } from "./DynamicProperties/AllowSet";
 
-const MAX_DEPTH = 150;
+const MAX_DEPTH = 110;
 
 export const VeinBreakEvent = (blockBreakEvent: PlayerBreakBlockAfterEvent) => {
-  const brokenBlock = blockBreakEvent.brokenBlockPermutation.type.id;
-
-  if (!VEIN_BLOCKS_MAP.has(brokenBlock) || !blockBreakEvent.player.isSneaking) {
+  if (!getJLTreeCapConfig().enabled) {
     return;
   }
-
+  const brokenBlock = blockBreakEvent.brokenBlockPermutation.type.id;
+  const allowSet = getAllowSet();
+  if (
+    (!VEIN_BLOCKS_MAP.has(brokenBlock) && !allowSet.set.has(brokenBlock)) ||
+    !blockBreakEvent.player.isSneaking
+  ) {
+    return;
+  }
   DFS(
     blockBreakEvent.block.location,
     brokenBlock,
@@ -53,10 +61,10 @@ const DFS = (
           continue;
         }
 
+        const nextBlock = dimension.getBlock(newBlockLocation)?.type.id ?? "";
         if (
-          VEIN_BLOCKS_MAP.get(blockTypeId)?.has(
-            dimension.getBlock(newBlockLocation)?.type.id ?? ""
-          )
+          VEIN_BLOCKS_MAP.get(blockTypeId)?.has(nextBlock) ||
+          nextBlock === blockTypeId
         ) {
           DFS(newBlockLocation, blockTypeId, depth + 1, visited, dimension);
         }
