@@ -13,7 +13,7 @@ How to use:
 ⛏️ It works for mining veins of ore too!
 ![coal-mining](https://github.com/laynebritton/jl-fast-treecapitator/assets/21363865/bdf6db8b-16a7-4b73-9b65-734bffd94e73)
 
-⚡️ Optimal Performance: Our mining algorithm is optimized for Minecraft. It mines lightning fast while keeping resource usage to a low. Resulting in a smooth gaming experience across all platforms and servers.
+⚡️ Optimal Performance: Our mining algorithm is optimized for Minecraft. It mines lightning fast while keeping resource usage low. Resulting in a smooth gaming experience across all platforms and servers.
 
 🔮 Microsoft Scripting API Integration: Our mod utilizes the latest Minecraft Scripting API using TypeScript. 
 
