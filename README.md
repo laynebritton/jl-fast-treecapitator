@@ -21,6 +21,8 @@ How to use:
 
 JLTree supports user configuration in-game using commands.
 
+Playing on a server? See the `Server config` below.
+
 Use `>jltree help` for the full list of commands in game.
 
 Want to add a block to the vein mineable blocks? Use `>jltree add block:id`
@@ -37,6 +39,22 @@ Full command list
 >jltree reset - Reset default jltreecap settings
 >jltree toggleGetId - Toggle get block id mode on/off
 ```
+
+## 🗄️ Server config
+
+To use the user configuration on a server, the server operators need to have permissions of either 3 or 4.
+
+Op permission levels can be set in the configuration in `server.properties` file. Make the following change
+
+```
+op-permission-level=3
+```
+or 
+
+```
+op-permission-level=4
+```
+
 
 ## To Develop Locally
 
