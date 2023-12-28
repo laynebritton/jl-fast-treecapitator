@@ -2,7 +2,6 @@ import {
   world,
   PlayerBreakBlockAfterEvent,
   ChatSendAfterEvent,
-  DynamicPropertiesDefinition,
 } from "@minecraft/server";
 import { VeinBreakEvent } from "./VeinBreakEvent";
 import { say } from "./Debug";
