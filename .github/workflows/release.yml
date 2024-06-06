@@ -7,9 +7,10 @@ on:
 name: Create Release
 
 jobs:
-  build:
+  release:
     name: Create Release
     runs-on: ubuntu-latest
+    if: github.ref == 'ref/heads/main'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
