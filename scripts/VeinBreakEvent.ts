@@ -34,7 +34,7 @@ export const VeinBreakEvent = (blockBreakEvent: PlayerBreakBlockAfterEvent) => {
     brokenBlock,
     1,
     new Set<string>(),
-    blockBreakEvent.dimension,
+    dimension,
     itemStack
   );
 };
@@ -113,9 +113,7 @@ const _getMostFrequentItemInBrokenBlock = (
       const itemStack = entity.getComponent("item")?.itemStack;
       if (itemStack) {
         const id = itemStack.type.id;
-        say(id);
         const freq = (itemFrequency.get(id) || 0) + 1;
-        say(String(freq));
         itemFrequency.set(id, freq);
 
         if (freq > bestFreq) {
