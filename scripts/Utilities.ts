@@ -4,10 +4,7 @@ import {
   world,
   BlockVolume,
   ItemStack,
-  Entity,
 } from "@minecraft/server";
-import { MinecraftBlockTypes } from "./mojang-block";
-import { say } from "./Debug";
 
 export const SYSTEM_CHAT_PREFIX = "<jltree>";
 

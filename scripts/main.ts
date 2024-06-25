@@ -1,6 +1,5 @@
 import {
   world,
-  system,
   PlayerBreakBlockAfterEvent,
   ChatSendAfterEvent,
 } from "@minecraft/server";
