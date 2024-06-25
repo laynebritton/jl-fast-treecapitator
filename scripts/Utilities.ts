@@ -1,13 +1,29 @@
-import { Vector3, Dimension, world } from "@minecraft/server";
+import {
+  Vector3,
+  Dimension,
+  world,
+  BlockVolume,
+  ItemStack,
+  Entity,
+} from "@minecraft/server";
 import { MinecraftBlockTypes } from "./mojang-block";
 import { say } from "./Debug";
 
 export const SYSTEM_CHAT_PREFIX = "<jltree>";
 
-export const destroy = (blockLocation: Vector3, dimension: Dimension) => {
-  dimension.runCommandAsync(
-    `setblock ${blockLocation.x} ${blockLocation.y} ${blockLocation.z} ${MinecraftBlockTypes.Air} destroy`
+export const destroy = (
+  blockLocation: Vector3,
+  dimension: Dimension,
+  itemStack: ItemStack | undefined
+) => {
+  dimension.fillBlocks(
+    new BlockVolume(blockLocation, blockLocation),
+    "minecraft:air"
   );
+
+  if (itemStack) {
+    dimension.spawnItem(itemStack, blockLocation);
+  }
 };
 
 export const systemOutput = (message: String) => {
