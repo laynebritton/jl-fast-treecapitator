@@ -28,28 +28,35 @@ export const VeinBreakEvent = (blockBreakEvent: PlayerBreakBlockAfterEvent) => {
 
   const dimension = blockBreakEvent.dimension;
   let itemStack = _getMostFrequentItemInBrokenBlock(dimension, blockBreakEvent);
+  say("using dfs iterative");
+  let Search: DfsAlgorithm = DfsIterative;
 
-  DFS(
-    blockBreakEvent.block.location,
-    brokenBlock,
-    1,
-    new Set<string>(),
-    dimension,
-    itemStack
-  );
+  Search(blockBreakEvent.block.location, brokenBlock, dimension, itemStack);
 };
+
+/*
+  Wraps the recursive dfs so that implementation details remain within the algorithm.
+*/
+function DfsRecursive(
+  blockLocation: Vector3,
+  blockTypeId: string,
+  dimension: Dimension,
+  itemStack: ItemStack | undefined
+): void {
+  DFS(blockLocation, blockTypeId, 1, new Set<string>(), dimension, itemStack);
+}
 
 /*
 Check adjacent 26 blocks for matching blockTypeId. If the same and unvisited, then dfs(new location, blockTypeId)
 */
-const DFS = (
+function DFS(
   blockLocation: Vector3,
   blockTypeId: string,
   depth: number,
   visited: Set<string>,
   dimension: Dimension,
   itemStack: ItemStack | undefined
-) => {
+): void {
   const coord = convertBlockLocationToString(blockLocation);
   visited.add(coord);
   if (depth > MAX_DEPTH) {
@@ -90,7 +97,66 @@ const DFS = (
   if (depth > 1) {
     destroy(blockLocation, dimension, itemStack);
   }
-};
+}
+
+function DfsIterative(
+  blockLocation: Vector3,
+  blockTypeId: string,
+  dimension: Dimension,
+  itemStack: ItemStack | undefined
+): void {
+  const stack = [{ location: blockLocation, depth: 0 }];
+  const visited = new Set<string>();
+  visited.add(convertBlockLocationToString(blockLocation));
+
+  while (stack.length) {
+    const { location, depth } = stack.pop()!;
+
+    if (depth > MAX_DEPTH) {
+      continue;
+    }
+
+    for (let z = -1; z <= 1; z++) {
+      for (let x = -1; x <= 1; x++) {
+        for (let y = -1; y <= 1; y++) {
+          const newBlockLocation: Vector3 = {
+            x: location.x + x,
+            y: location.y + y,
+            z: location.z + z,
+          };
+
+          const newCoord = convertBlockLocationToString(newBlockLocation);
+
+          if (visited.has(newCoord)) {
+            continue;
+          }
+
+          visited.add(newCoord);
+
+          const nextBlock = dimension.getBlock(newBlockLocation)?.type.id ?? "";
+          if (
+            VEIN_BLOCKS_MAP.get(blockTypeId)?.has(nextBlock) ||
+            nextBlock === blockTypeId
+          ) {
+            stack.push({ location: newBlockLocation, depth: depth + 1 });
+            destroy(newBlockLocation, dimension, itemStack);
+          }
+        }
+      }
+    }
+
+    // Do not destroy root since it is mined by player. Prevent duplicate drops
+  }
+}
+
+interface DfsAlgorithm {
+  (
+    blockLocation: Vector3,
+    blockTypeId: string,
+    dimension: Dimension,
+    itemStack: ItemStack | undefined
+  ): void;
+}
 
 const convertBlockLocationToString = (blockLocation: Vector3) => {
   return blockLocation.x + "," + blockLocation.y + "," + blockLocation.z;
