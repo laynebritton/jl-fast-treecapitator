@@ -28,7 +28,7 @@ export const VeinBreakEvent = (blockBreakEvent: PlayerBreakBlockAfterEvent) => {
 
   const dimension = blockBreakEvent.dimension;
   let itemStack = _getMostFrequentItemInBrokenBlock(dimension, blockBreakEvent);
-  say("using dfs iterative");
+
   let Search: DfsAlgorithm = DfsIterative;
 
   Search(blockBreakEvent.block.location, brokenBlock, dimension, itemStack);
@@ -106,14 +106,14 @@ function DfsIterative(
   itemStack: ItemStack | undefined
 ): void {
   const stack = [{ location: blockLocation, depth: 0 }];
-  const visited = new Set<string>();
-  visited.add(convertBlockLocationToString(blockLocation));
+  const visited = new Set<Vector3>();
+  visited.add(blockLocation);
 
   while (stack.length) {
     const { location, depth } = stack.pop()!;
 
     if (depth > MAX_DEPTH) {
-      continue;
+      return;
     }
 
     for (let z = -1; z <= 1; z++) {
@@ -125,13 +125,11 @@ function DfsIterative(
             z: location.z + z,
           };
 
-          const newCoord = convertBlockLocationToString(newBlockLocation);
-
-          if (visited.has(newCoord)) {
+          if (visited.has(newBlockLocation)) {
             continue;
           }
 
-          visited.add(newCoord);
+          visited.add(newBlockLocation);
 
           const nextBlock = dimension.getBlock(newBlockLocation)?.type.id ?? "";
           if (
@@ -144,8 +142,6 @@ function DfsIterative(
         }
       }
     }
-
-    // Do not destroy root since it is mined by player. Prevent duplicate drops
   }
 }
 
