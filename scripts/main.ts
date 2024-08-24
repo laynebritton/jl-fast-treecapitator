@@ -25,3 +25,5 @@ world.afterEvents.chatSend.subscribe(
     UserCLIEvent(chatSendAfterEvent);
   }
 );
+
+say("Loaded!");
