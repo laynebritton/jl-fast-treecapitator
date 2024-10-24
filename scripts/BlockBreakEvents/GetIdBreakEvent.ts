@@ -1,7 +1,7 @@
 import { PlayerBreakBlockAfterEvent } from "@minecraft/server";
 import { say } from "../Debug";
 import { SYSTEM_CHAT_PREFIX, systemOutput } from "../Utilities";
-import { getJLTreeCapConfig } from "../DynamicProperties/JLTreeCapConfig.ts";
+import { getJLTreeCapConfig } from "../DynamicProperties/JLTreeCapConfig";
 
 export const GetBlockIdBreakEvent = (
   blockBreakEvent: PlayerBreakBlockAfterEvent

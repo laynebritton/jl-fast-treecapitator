@@ -7,7 +7,7 @@ import {
 import { destroy, systemOutput } from "./Utilities";
 import { VEIN_BLOCKS_MAP } from "./VeinBlocksMap";
 import { say } from "./Debug";
-import { getJLTreeCapConfig } from "./DynamicProperties/JLTreeCapConfig.ts";
+import { getJLTreeCapConfig } from "./DynamicProperties/JLTreeCapConfig";
 import { getAllowSet } from "./DynamicProperties/AllowSet";
 
 const MAX_DEPTH = 99;
