@@ -3,7 +3,7 @@ import { systemOutput } from "./Utilities";
 import {
   getJLTreeCapConfig,
   setJLTreeCapConfig,
-} from "./DynamicProperties/JLTreeCapConfig.ts";
+} from "./DynamicProperties/JLTreeCapConfig";
 import { getAllowSet, setAllowSet } from "./DynamicProperties/AllowSet";
 
 export const USER_CLI_PREFIX = ">jltree";
