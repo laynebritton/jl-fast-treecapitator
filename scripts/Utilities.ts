@@ -26,5 +26,5 @@ export const destroy = (
 export const systemOutput = (message: String) => {
   world
     .getDimension("overworld")
-    .runCommandAsync(`say §2${SYSTEM_CHAT_PREFIX} §f${message}`);
+    .runCommand(`say §2${SYSTEM_CHAT_PREFIX} §f${message}`);
 };
