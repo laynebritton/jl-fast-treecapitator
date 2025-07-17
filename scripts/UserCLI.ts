@@ -1,4 +1,4 @@
-import { ChatSendAfterEvent } from "@minecraft/server";
+import { ChatSendAfterEvent, CommandPermissionLevel } from "@minecraft/server";
 import { systemOutput } from "./Utilities";
 import {
   getJLTreeCapConfig,
@@ -27,7 +27,7 @@ export const UserCLIEvent = (chatSendAfterEvent: ChatSendAfterEvent) => {
   }
 
   const sender = chatSendAfterEvent.sender;
-  if (!sender.isOp()) {
+  if (sender.commandPermissionLevel == CommandPermissionLevel.Any) {
     systemOutput(
       `Invalid permissions to make this change. Please contact your server operator`
     );
